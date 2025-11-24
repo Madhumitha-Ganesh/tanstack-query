@@ -3,6 +3,13 @@ import Product from '../ReactBookPage/ReactBook';
 import CloudBook from '../CloudBookPage/CloudBook';
 import About from '../AboutPage/About';
 
+export const HomePageContent = () => (
+    <div>
+        <h1>Random Number</h1>
+        <p>{Math.random()*20}</p>
+    </div>
+)
+
 const Home = () => {
     const [activeSection, setActiveSection] = useState<string | null>(null);
 
@@ -11,6 +18,14 @@ const Home = () => {
             <h1>👋 Welcome to React Query Learning Session</h1>
             <nav>
                 <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
+                    <li style={{ margin: '10px 0' }}>
+                        <button 
+                            onClick={() => setActiveSection('Home')}
+                            style={{ background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', textDecoration: 'underline' }}
+                        >
+                            Home 
+                        </button>
+                    </li>
                     <li style={{ margin: '10px 0' }}>
                         <button 
                             onClick={() => setActiveSection('about')}
@@ -38,7 +53,7 @@ const Home = () => {
                 </ul>
             </nav>
 
-            
+            {activeSection === 'Home' && <HomePageContent />}
             {activeSection === 'about' && <About />}
             {activeSection === 'product' && <Product />}
             {activeSection === 'cloudbook' && <CloudBook />}

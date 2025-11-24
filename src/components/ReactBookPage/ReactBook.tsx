@@ -10,8 +10,6 @@ interface Book {
     image: string;
 }
 
-
-
 export default function Product() {
 
     const { isPending, error, data } = useQuery<Book[]>({
@@ -26,6 +24,10 @@ export default function Product() {
             console.log('Fetching dynamicBooks:', ReactBooks);
             return new Promise(resolve => setTimeout(() => resolve(ReactBooks), 1000));
         },
+        //refetchOnMount: true,
+        //refetchOnWindowFocus: true,
+        //refetchOnReconnect: true,
+        refetchInterval: 1000 * 60 * 1,
         staleTime: 5 * 60 * 1000,
     })
 
