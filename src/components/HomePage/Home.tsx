@@ -14,49 +14,76 @@ const Home = () => {
     const [activeSection, setActiveSection] = useState<string | null>(null);
 
     return (
-        <div style={{ padding: '20px' }}>
-            <h1>👋 Welcome to React Query Learning Session</h1>
-            <nav>
-                <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
-                    <li style={{ margin: '10px 0' }}>
+        <div style={{ 
+            background: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(10px)',
+            margin: '20px',
+            borderRadius: '20px',
+            padding: '40px',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
+        }}>
+            <h1 style={{
+                textAlign: 'center',
+                color: 'white',
+                fontSize: '3rem',
+                marginBottom: '40px',
+                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
+            }}>📚 React Query Learning Hub</h1>
+            
+            <nav style={{ textAlign: 'center', marginBottom: '40px' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
+                    {[{key: 'Home', label: '🏠 Home'}, {key: 'about', label: '📖 About'}, {key: 'product', label: '⚛️ React Books'}, {key: 'cloudbook', label: '☁️ Cloud Books'}].map((item) => (
                         <button 
-                            onClick={() => setActiveSection('Home')}
-                            style={{ background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', textDecoration: 'underline' }}
+                            key={item.key}
+                            onClick={() => setActiveSection(activeSection === item.key ? null : item.key)}
+                            style={{
+                                background: activeSection === item.key 
+                                    ? 'linear-gradient(45deg, #ff6b6b, #ee5a24)' 
+                                    : 'rgba(255, 255, 255, 0.2)',
+                                border: 'none',
+                                color: 'white',
+                                padding: '15px 30px',
+                                borderRadius: '50px',
+                                cursor: 'pointer',
+                                fontSize: '18px',
+                                fontWeight: 'bold',
+                                transition: 'all 0.3s ease',
+                                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
+                                transform: activeSection === item.key ? 'scale(1.05)' : 'scale(1)'
+                            }}
+                            onMouseEnter={(e) => {
+                                if (activeSection !== item.key) {
+                                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)';
+                                    e.currentTarget.style.transform = 'scale(1.05)';
+                                }
+                            }}
+                            onMouseLeave={(e) => {
+                                if (activeSection !== item.key) {
+                                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                                    e.currentTarget.style.transform = 'scale(1)';
+                                }
+                            }}
                         >
-                            Home 
+                            {item.label}
                         </button>
-                    </li>
-                    <li style={{ margin: '10px 0' }}>
-                        <button 
-                            onClick={() => setActiveSection('about')}
-                            style={{ background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', textDecoration: 'underline' }}
-                        >
-                            About
-                        </button>
-                    </li>
-                    <li style={{ margin: '10px 0' }}>
-                        <button 
-                            onClick={() => setActiveSection('product')}
-                            style={{ background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', textDecoration: 'underline' }}
-                        >
-                            React Books
-                        </button>
-                    </li>
-                    <li style={{ margin: '10px 0' }}>
-                        <button 
-                            onClick={() => setActiveSection('cloudbook')}
-                            style={{ background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', textDecoration: 'underline' }}
-                        >
-                            Cloud Books
-                        </button>
-                    </li>
-                </ul>
+                    ))}
+                </div>
             </nav>
 
-            {activeSection === 'Home' && <HomePageContent />}
-            {activeSection === 'about' && <About />}
-            {activeSection === 'product' && <Product />}
-            {activeSection === 'cloudbook' && <CloudBook />}
+            {activeSection && (
+                <div style={{
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    borderRadius: '15px',
+                    padding: '20px',
+                    marginTop: '20px',
+                    transition: 'all 0.3s ease'
+                }}>
+                    {activeSection === 'Home' && <HomePageContent />}
+                    {activeSection === 'about' && <About />}
+                    {activeSection === 'product' && <Product />}
+                    {activeSection === 'cloudbook' && <CloudBook />}
+                </div>
+            )}
         </div>
     )
 }
